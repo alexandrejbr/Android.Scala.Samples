@@ -39,6 +39,13 @@ class QuizActivity extends Activity {
     val questionTextView = this.findViewById(R.id.question_text_view).asInstanceOf[TextView]
     questionTextView.setText(questionBank(currentIndex).question)
     
+    val nextClickHandler = (v: View) => {
+      currentIndex = nextIndex(currentIndex)
+      questionTextView.setText(questionBank(currentIndex).question)
+    }
+    
+    questionTextView.setOnClickListener(nextClickHandler)
+    
     val trueButton = this.findViewById(R.id.true_button).asInstanceOf[Button]
     trueButton.setOnClickListener((v: View) => checkAnswer(true))
 
@@ -46,10 +53,7 @@ class QuizActivity extends Activity {
     falseButton.setOnClickListener((v: View) => checkAnswer(false))
     
     val nextButton = this.findViewById(R.id.next_button).asInstanceOf[Button]
-    nextButton.setOnClickListener((v: View) => {
-      currentIndex = nextIndex(currentIndex)
-      questionTextView.setText(questionBank(currentIndex).question)
-    })
+    nextButton.setOnClickListener(nextClickHandler)
   }
 
   override def onCreateOptionsMenu(menu: Menu): Boolean = {
