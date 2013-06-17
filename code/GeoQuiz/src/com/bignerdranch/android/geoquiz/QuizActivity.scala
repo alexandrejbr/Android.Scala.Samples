@@ -21,6 +21,8 @@ class QuizActivity extends Activity {
 
   def nextIndex(i: Int) = (i + 1) % questionBank.size
   
+  def prevIndex(i: Int) = (i + questionBank.size - 1) % questionBank.size
+  
   //TODO remove mutable state
   var currentIndex : Int = 0
   
@@ -54,6 +56,12 @@ class QuizActivity extends Activity {
     
     val nextButton = this.findViewById(R.id.next_button).asInstanceOf[Button]
     nextButton.setOnClickListener(nextClickHandler)
+    
+    val prevButton = this.findViewById(R.id.prev_button).asInstanceOf[Button]
+    prevButton.setOnClickListener((v: View) => {
+      currentIndex = prevIndex(currentIndex)
+      questionTextView.setText(questionBank(currentIndex).question)
+    })
   }
 
   override def onCreateOptionsMenu(menu: Menu): Boolean = {
