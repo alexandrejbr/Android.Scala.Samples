@@ -9,8 +9,9 @@ import android.widget.Toast
 import android.view.View
 import android.view.View.OnClickListener
 import utils.Helpers._
+import utils.FindView
 
-class QuizActivity extends Activity {
+class QuizActivity extends Activity with FindView {
 
   val questionBank = Map(
     0 -> new TrueFalse(R.string.question_oceans, true),
@@ -38,7 +39,7 @@ class QuizActivity extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_quiz);
 
-    val questionTextView = this.findViewById(R.id.question_text_view).asInstanceOf[TextView]
+    val questionTextView = this.findView[TextView](R.id.question_text_view)
     questionTextView.setText(questionBank(currentIndex).question)
     
     val nextClickHandler = (v: View) => {
@@ -48,16 +49,16 @@ class QuizActivity extends Activity {
     
     questionTextView.setOnClickListener(nextClickHandler)
     
-    val trueButton = this.findViewById(R.id.true_button).asInstanceOf[Button]
+    val trueButton = this.findView[Button](R.id.true_button)
     trueButton.setOnClickListener((v: View) => checkAnswer(true))
 
-    val falseButton = this.findViewById(R.id.false_button).asInstanceOf[Button]
+    val falseButton = this.findView[Button](R.id.false_button)
     falseButton.setOnClickListener((v: View) => checkAnswer(false))
     
-    val nextButton = this.findViewById(R.id.next_button).asInstanceOf[Button]
+    val nextButton = this.findView[Button](R.id.next_button)
     nextButton.setOnClickListener(nextClickHandler)
     
-    val prevButton = this.findViewById(R.id.prev_button).asInstanceOf[Button]
+    val prevButton = this.findView[Button](R.id.prev_button)
     prevButton.setOnClickListener((v: View) => {
       currentIndex = prevIndex(currentIndex)
       questionTextView.setText(questionBank(currentIndex).question)
