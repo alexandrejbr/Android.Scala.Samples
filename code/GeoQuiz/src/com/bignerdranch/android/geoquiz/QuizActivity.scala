@@ -3,13 +3,14 @@ package com.bignerdranch.android.geoquiz
 import android.os.Bundle
 import android.app.Activity
 import android.view.Menu
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import android.view.View
 import android.view.View.OnClickListener
 import utils.Helpers._
 import utils.FindView
+import android.widget.ImageButton
+import android.widget.Button
 
 class QuizActivity extends Activity with FindView {
 
@@ -55,10 +56,10 @@ class QuizActivity extends Activity with FindView {
     val falseButton = this.findView[Button](R.id.false_button)
     falseButton.setOnClickListener((v: View) => checkAnswer(false))
     
-    val nextButton = this.findView[Button](R.id.next_button)
+    val nextButton = this.findView[ImageButton](R.id.next_button)
     nextButton.setOnClickListener(nextClickHandler)
     
-    val prevButton = this.findView[Button](R.id.prev_button)
+    val prevButton = this.findView[ImageButton](R.id.prev_button)
     prevButton.setOnClickListener((v: View) => {
       currentIndex = prevIndex(currentIndex)
       questionTextView.setText(questionBank(currentIndex).question)
